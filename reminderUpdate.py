@@ -23,7 +23,8 @@ def sety():
             print(dt)
             t=dt.timestamp()
             print(t)
-            label.config(text=f"Напоминание установлено на {hour:02}:{minute:02}")
+            text = sd.askstring("Можешь затекстить","Нипиши что-нибудь")
+            label.config(text=f"Напоминание установлено на {hour:02}:{minute:02}\n {text}")
         except ValueError:
             mb.showerror("Упс","Неподходящий формат времени")
         except Exception as e:
