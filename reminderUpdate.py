@@ -44,7 +44,7 @@ def play_snd():
     global music
     music = True
     pygame.mixer.init()
-    pygame.mixer.music.load("din.mp3")
+    pygame.mixer.music.load("The Jumping Cats - Crocodile Goes For Porto.mp3")
     pygame.mixer.music.play()
 
 def stop_music():
