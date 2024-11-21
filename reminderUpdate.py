@@ -6,11 +6,13 @@ import time
 import pygame
 
 t=0
+text=0
+lbl=0
 music = False
 
 
 def sety():
-    global t
+    global t, text
     rem=sd.askstring("Время напоминания",
                      "Введите время напоминания в формате ЧЧ:ММ")
     if rem:
@@ -23,7 +25,7 @@ def sety():
             print(dt)
             t=dt.timestamp()
             print(t)
-            text = sd.askstring("Можешь затекстить","Нипиши что-нибудь")
+            text = sd.askstring("Можешь затекстить","Напиши что-нибудь")
             label.config(text=f"Напоминание установлено на {hour:02}:{minute:02}\n {text}")
         except ValueError:
             mb.showerror("Упс","Неподходящий формат времени")
@@ -35,8 +37,9 @@ def check():
     if t:
         now=time.time()
         if now >=t :
-            play_snd()
+            play_snd(), remin()
             t=0
+            #mb.showinfo("Пора!", f"{text}")
     window.after(10000,check)
 
 
@@ -54,9 +57,17 @@ def stop_music():
         music=False
     label.config(text="Установить новое напоминание")
 
+def remin():
+    global lbl
+    root=Toplevel(window)
+    root.title("Напоминание")
+    root.geometry("1000x1000")
+    lbl=Label(root, text=text, font=("Impact",50))
+    lbl.pack(pady=100)
 
 window=Tk()
 window.title("Звуковая напоминалка")
+
 
 label=Label(text="Установите напоминание", font=("Impact",30))
 label.pack(pady=10)
@@ -68,6 +79,7 @@ stop_but=Button(text="Стоп музыка", font=("Impact", 20), command=stop_
 stop_but.pack(pady=10)
 
 check()
+
 
 window.mainloop()
 
